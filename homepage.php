@@ -105,55 +105,61 @@
 			else
 			{
 ?>
-				<div class="results-container">
+				<div class="row">
+					<section class="results-container">
 <?php
-					while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC))
-					{
-						$instDateTime = new DateTime($row['date']. " ".$row['time']);
+						while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC))
+						{
+							$instDateTime = new DateTime($row['date']. " ".$row['time']);
 ?>
-						<form method="POST" action="<?= $_SERVER['REQUEST_URI'];?>">
-							<input type="hidden" name="instance_id" value="<?= $row['instance_id']; ?>" />
-							<input type="hidden" name="event_id" value="<?= $row['event_id']; ?>" />
-							<input type="hidden" name="inst_date" value="<?= $row['date']; ?>" />
-							<input type="hidden" name="description" value="<?= $row['description']; ?>" />
-							<input type="hidden" name="currStatus" value="<?= $row['status']; ?>" />
-							<div class="start-travel-container result-item">
-								Start Travel: <?= date('H:i',$instDateTime->getTimestamp()-60*$row['travel_time']) ;?>
-							</div>
-							<div class="start-task-container result-item">
-								Start Task: <input name="inst_time" type="time" value="<?= $row['time']; ?>" />
-							</div>
-							<div class="end-task-container result-item">
-								End Task: <?= date('H:i',$instDateTime->getTimestamp()+60*$row['duration']); ?>
-							</div>
-							<div class="task-type-container result-item">
-								Type: <a href="view1event.php?event_id=<?= $row['event_id']; ?>"><?= $row['type']; ?></a>
-							</div>
-							<div class="task-description-container result-item">
-								Description: <a href="view1event.php?event_id=<?= $row['event_id']; ?>"><?= $row['description']; ?></a>
-							</div>
-							<div class="task-travel-container result-item">
-								Travel: <input name="travel_time" type="number" min="0" value="<?= $row['travel_time']; ?>" />
-							</div>
-							<div class="task-status-container result-item">
-								Status: <?= $row['status']; ?>
-							</div>
-							<div class="task-update-container result-item">
-								<input id="<?= $row['instance_id']; ?>" type="submit" value="Update" />
-							</div>
-						</form>
-						<div class="task-complete-container result-item">
-							<button class="markComp" data-instID="<?= $row['instance_id']; ?>">Complete</button>
-						</div>
-						<div class="task-cancel-container result-item">
-							<button class="markCanx" data-instID="<?= $row['instance_id']; ?>">Cancel</button>
-						</div>
-						<div class="task-postpone-container result-item">
-							<button class="mark2mo" data-instID="<?= $row['instance_id']; ?>" data-eventID="<?= $row['event_id']; ?>" data-newDate="<?= date('Y-m-d',$instDateTime->getTimestamp()+86400); ?>" data-instTime="<?= $row['time']; ?>" data-travelTime="<?= $row['travel_time']; ?>">+1 day</button>
-						</div>
+							<article class="" data-status="<?= $row['status']; ?>">
+								<form class="" method="POST" action="<?= $_SERVER['REQUEST_URI'];?>">
+									<input type="hidden" name="instance_id" value="<?= $row['instance_id']; ?>" />
+									<input type="hidden" name="event_id" value="<?= $row['event_id']; ?>" />
+									<input type="hidden" name="inst_date" value="<?= $row['date']; ?>" />
+									<input type="hidden" name="description" value="<?= $row['description']; ?>" />
+									<input type="hidden" name="currStatus" value="<?= $row['status']; ?>" />
+									<div class="task-description-container result-item">
+										<a href="view1event.php?event_id=<?= $row['event_id']; ?>"><?= $row['description']; ?></a>
+									</div>
+									<div class="task-type-container result-item">
+										<a href="view1event.php?event_id=<?= $row['event_id']; ?>"><?= $row['type']; ?></a>
+									</div>
+									<div class="start-travel-container result-item">
+										Start Travel: <?= date('H:i',$instDateTime->getTimestamp()-60*$row['travel_time']) ;?>
+									</div>
+									<div class="task-travel-container result-item">
+										Travel: <input name="travel_time" type="number" min="0" value="<?= $row['travel_time']; ?>" />
+									</div>
+									<div class="start-task-container result-item">
+										Start Task: <input name="inst_time" type="time" value="<?= $row['time']; ?>" />
+									</div>
+									<div class="end-task-container result-item">
+										End Task: <?= date('H:i',$instDateTime->getTimestamp()+60*$row['duration']); ?>
+									</div>
+									<div class="task-status-container result-item">
+										Status: <?= $row['status']; ?>
+									</div>
+									<div class="task-update-container result-item">
+										<input id="<?= $row['instance_id']; ?>" class="fw" type="submit" value="Update" />
+									</div>
+								</form>
+								<div class="change-status-container">
+									<div class="task-complete-container change-status">
+										<button class="markComp" data-instID="<?= $row['instance_id']; ?>">Complete</button>
+									</div>
+									<div class="task-cancel-container change-status">
+										<button class="markCanx" data-instID="<?= $row['instance_id']; ?>">Cancel</button>
+									</div>
+									<div class="task-postpone-container change-status">
+										<button class="mark2mo" data-instID="<?= $row['instance_id']; ?>" data-eventID="<?= $row['event_id']; ?>" data-newDate="<?= date('Y-m-d',$instDateTime->getTimestamp()+86400); ?>" data-instTime="<?= $row['time']; ?>" data-travelTime="<?= $row['travel_time']; ?>">+1 day</button>
+									</div>
+								</div>
+							</article>
 <?php
-					}
+						}
 ?>
+					</section>
 				</div>
 <?php
 			}

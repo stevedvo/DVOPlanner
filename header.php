@@ -16,9 +16,7 @@
 	<body>
 		<header>
 			<div class="container">
-				<h1><?= $date->format('l, ') ?><br/>
-					<?= $date->format('d F Y') ?>
-				</h1>
+				<h1><?= $date->format('l, d F Y') ?></h1>
 				<div class="nav-buttons-container">
 					<button class="prev week" id="prevWkBtn">&lt;&lt;7 days</button>
 					<button class="prev day" id="prevDayBtn">&lt;Prev Day</button>
@@ -33,4 +31,3 @@
 				</div>
 			</div>
 		</header>
-		<hr/>

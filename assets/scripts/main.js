@@ -2,9 +2,13 @@ function init()
 {
 	offset = getParameterByName('offset');
 
-	if (offset = null)
+	if (offset == null)
 	{
 		offset = 0;
+	}
+	else
+	{
+		offset = parseInt(offset);
 	}
 
 	$("#prevWkBtn").click(function()
