@@ -1,8 +1,1 @@
-@font-face{font-family:Roboto;src:url(../fonts/Roboto-Regular.ttf) format("truetype")}
-body{font-family:Roboto,sans-serif}
-.floatL{float:left}
-.floatR{float:right}
-.fw{width:100%}
-.fh{height:100%}
-header button{float:left}
-header a{float:left}
+@font-face{font-family:Roboto;src:url(../fonts/Roboto-Regular.ttf) format("truetype")}body{font-family:Roboto,sans-serif}.floatL{float:left}.floatR{float:right}.fw{width:100%}.fh{height:100%}header h1{margin-top:10px}header .link-buttons-container,header .nav-buttons-container{width:100%;max-width:480px;display:grid;margin:0 auto 10px;grid-template-columns:repeat(3,1fr)}header .nav-buttons-container button.prev{grid-column-start:1;grid-column-end:2}header .nav-buttons-container button.next{grid-column-start:3;grid-column-end:4}header .nav-buttons-container button.week{grid-row-start:1;grid-row-end:2}header .nav-buttons-container button.day{grid-row-start:2;grid-row-end:3}header .nav-buttons-container button#todayBtn{grid-column-start:2;grid-column-end:3;grid-row-start:1;grid-row-end:3}header .link-buttons-container a button{width:100%}@media only screen and (min-width:576px){header h1 br{display:none}}
