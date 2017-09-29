@@ -40,19 +40,12 @@ function init()
 		location.href="homepage.php?offset="+offset;
 	});
 
-	// sets background of row and descendant elements according to status
-	$("tr[data-status='To Do'], tr[data-status='To Do'] td *").css('background','#FFAAAA');
-	$("tr[data-status='Complete'], tr[data-status='Complete'] td *").css('background','#AAFFAA');
-	$("tr[data-status='Postponed'], tr[data-status='Postponed'] td *").css('background','#AAAAAA');
-	$("tr[data-status='Cancelled'], [data-status='Cancelled'] td *").css('background','#AAAAAA');
-
 	// updates displayed status to user on button click
 	// performs AJAX POST to update the DB
 	$(".markComp").click(function()
 	{
-		$(this).parent().parent().attr("data-status", "Complete");
-		$(this).parent().prev().prev().html("Complete");
-		$("tr[data-status='Complete'], tr[data-status='Complete'] td *").css('background','#AAFFAA');
+		$(this).parents("article").attr("data-status", "Complete");
+		$(this).parents("article").find(".task-status-container").html("Complete");
 		$.ajax(
 		{
 			type: 	"POST",
@@ -66,9 +59,8 @@ function init()
 	});
 	$(".markCanx").click(function()
 	{
-		$(this).parent().parent().attr("data-status", "Cancelled");
-		$(this).parent().prev().prev().prev().html("Cancelled");
-		$("tr[data-status='Cancelled'], [data-status='Cancelled'] td *").css('background','#AAAAAA');
+		$(this).parents("article").attr("data-status", "Cancelled");
+		$(this).parents("article").find(".task-status-container").html("Cancelled");
 		$.ajax(
 		{
 			type: 	"POST",
@@ -82,9 +74,8 @@ function init()
 	});
 	$(".mark2mo").click(function()
 	{
-		$(this).parent().parent().attr("data-status", "Postponed");
-		$(this).parent().prev().prev().prev().prev().html("Postponed");
-		$("tr[data-status='Postponed'], tr[data-status='Postponed'] td *").css('background','#AAAAAA');
+		$(this).parents("article").attr("data-status", "Postponed");
+		$(this).parents("article").find(".task-status-container").html("Postponed");
 		$.ajax(
 		{
 			type: 	"POST",
