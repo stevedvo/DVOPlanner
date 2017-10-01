@@ -104,5 +104,8 @@ main {
 @media only screen and (min-width: 576px) {
   header h1 br {
     display: none; } }
+@media only screen and (min-width: 576px) {
+  main section.results-container article {
+    max-width: none; } }
 
 /*# sourceMappingURL=main.css.map */

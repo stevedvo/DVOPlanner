@@ -195,3 +195,31 @@ main
 		}
 	}
 }
+
+@media only screen and (min-width: 768px)
+{
+	main section.results-container article
+	{
+		max-width: none;
+
+		form
+		{
+			grid-template-columns: repeat(5, 1fr);
+
+			.result-item
+			{
+				grid-column-start: span 1;
+			}
+
+			.result-item.task-description-container
+			{
+				grid-column-start: span 2;
+			}
+
+			.result-item.task-type-container
+			{
+				text-align: center;
+			}
+		}
+	}
+}
