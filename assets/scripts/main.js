@@ -42,8 +42,9 @@ function init()
 
 	// updates displayed status to user on button click
 	// performs AJAX POST to update the DB
-	$(".markComp").click(function()
+	$(".markComp").click(function(e)
 	{
+		e.preventDefault();
 		$(this).parents("article").attr("data-status", "Complete");
 		$(this).parents("article").find(".task-status-container").html("Complete");
 		$.ajax(
@@ -57,8 +58,9 @@ function init()
 			}
 		});
 	});
-	$(".markCanx").click(function()
+	$(".markCanx").click(function(e)
 	{
+		e.preventDefault();
 		$(this).parents("article").attr("data-status", "Cancelled");
 		$(this).parents("article").find(".task-status-container").html("Cancelled");
 		$.ajax(
@@ -72,8 +74,9 @@ function init()
 			}
 		});
 	});
-	$(".mark2mo").click(function()
+	$(".mark2mo").click(function(e)
 	{
+		e.preventDefault();
 		$(this).parents("article").attr("data-status", "Postponed");
 		$(this).parents("article").find(".task-status-container").html("Postponed");
 		$.ajax(
