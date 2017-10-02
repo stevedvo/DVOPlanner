@@ -1,6 +1,6 @@
 header .nav-buttons-container,
 header .link-buttons-container,
-main section.results-container article
+main.homepage section.results-container article
 {
 	width: 100%;
 	max-width: 480px;
@@ -75,7 +75,7 @@ header
 	}
 }
 
-main
+main.homepage
 {
 	position: relative;
 	top: 140px;
@@ -198,7 +198,7 @@ main
 
 @media only screen and (min-width: 768px)
 {
-	main section.results-container article
+	main.homepage section.results-container article
 	{
 		max-width: none;
 

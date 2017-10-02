@@ -10,7 +10,7 @@
 
 	include ('header.php');
 ?>
-	<main>
+	<main class="homepage">
 		<div class="container">
 <?php
 			if ($_SERVER['REQUEST_METHOD']=="POST")
