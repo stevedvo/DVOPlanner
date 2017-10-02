@@ -1,0 +1,169 @@
+main.homepage
+{
+	position: relative;
+	top: 140px;
+
+	section.results-container
+	{
+		article
+		{
+			width: 100%;
+			max-width: 480px;
+			margin: 0px auto 5px;
+			padding: 10px 15px;
+			border-bottom: 1px solid black;
+
+			form
+			{
+				display: grid;
+				grid-template-columns: repeat(12, 1fr);
+				grid-column-gap: 15px;
+
+				.result-item
+				{
+					grid-column-start: span 6;
+					margin-bottom: 5px;
+					line-height: 26px;
+
+					input
+					{
+						line-height: 20px;
+					}
+				}
+
+				.result-item.task-description-container
+				{
+					grid-column-start: span 9;
+				}
+
+				.result-item.task-type-container
+				{
+					grid-column-start: span 3;
+					text-align: right;
+				}
+
+				.result-item.task-travel-container
+				{
+					input
+					{
+						width: calc(100% - 45px);
+						background-color: transparent;
+					}
+				}
+
+				.result-item.start-task-container
+				{
+					input
+					{
+						width: calc(100% - 70px);
+						background-color: transparent;
+					}
+				}
+
+				.result-item.task-update-container
+				{
+					input
+					{
+						width: 100%;
+					}
+				}
+
+				.change-status
+				{
+					grid-column-start: span 4;
+
+					button
+					{
+						width: 100%;
+					}
+				}
+			}
+		}
+
+		article[data-status='To Do']
+		{
+			background-color: rgb(255, 170, 170);
+		}
+
+		article[data-status='Complete']
+		{
+			background-color: rgb(170, 255, 170);
+		}
+
+		article[data-status='Cancelled']
+		{
+			background-color: rgb(170, 170, 170);
+		}
+
+		article[data-status='Postponed']
+		{
+			background-color: rgb(170, 170, 170);
+		}
+	}
+}
+
+@media only screen and (min-width: 768px)
+{
+	main.homepage section.results-container article
+	{
+		max-width: none;
+
+		form
+		{
+			.result-item,
+			.change-status
+			{
+				grid-column-start: span 3;
+			}
+
+			.result-item.task-description-container
+			{
+				grid-column-start: span 6;
+			}
+
+			.result-item.task-type-container
+			{
+				text-align: center;
+			}
+
+			.result-item.start-travel-container
+			{
+				grid-column-start: 1;
+				grid-column-end: 4;
+				grid-row-start: 2;
+			}
+
+			.result-item.task-travel-container
+			{
+				grid-column-start: 4;
+				grid-column-end: 7;
+				grid-row-start: 2;
+			}
+
+			.result-item.start-task-container
+			{
+				grid-column-start: 1;
+				grid-column-end: 4;
+				grid-row-start: 3;
+			}
+
+			.result-item.end-task-container
+			{
+				grid-column-start: 4;
+				grid-column-end: 7;
+				grid-row-start: 3;
+			}
+
+			.result-item.start-travel-container
+			{
+				grid-column-start: 1;
+				grid-row-start: 2;
+			}
+
+			.result-item.task-status-container
+			{
+				text-align: right;
+			}
+		}
+	}
+}

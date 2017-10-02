@@ -143,8 +143,6 @@
 									<div class="task-update-container result-item">
 										<input id="<?= $row['instance_id']; ?>" class="fw" type="submit" value="Update" />
 									</div>
-								</form>
-								<div class="change-status-container">
 									<div class="task-complete-container change-status">
 										<button class="markComp" data-instID="<?= $row['instance_id']; ?>">Complete</button>
 									</div>
@@ -154,7 +152,7 @@
 									<div class="task-postpone-container change-status">
 										<button class="mark2mo" data-instID="<?= $row['instance_id']; ?>" data-eventID="<?= $row['event_id']; ?>" data-newDate="<?= date('Y-m-d',$instDateTime->getTimestamp()+86400); ?>" data-instTime="<?= $row['time']; ?>" data-travelTime="<?= $row['travel_time']; ?>">+1 day</button>
 									</div>
-								</div>
+								</form>
 							</article>
 <?php
 						}
