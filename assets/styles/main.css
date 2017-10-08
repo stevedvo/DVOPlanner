@@ -1,0 +1,138 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url("../fonts/Roboto-Regular.ttf") format("truetype"); }
+body {
+  font-family: 'Roboto', sans-serif; }
+
+.floatL {
+  float: left; }
+
+.floatR {
+  float: right; }
+
+.fw {
+  width: 100%; }
+
+.fh {
+  height: 100%; }
+
+header .nav-buttons-container,
+header .link-buttons-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0px auto 5px; }
+
+header {
+  box-shadow: 0px 1px 1px 0px;
+  position: fixed;
+  width: 100%;
+  background: white;
+  z-index: 10; }
+  header h1 {
+    margin-top: 10px;
+    font-size: 20px; }
+  header .nav-buttons-container,
+  header .link-buttons-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); }
+  header .nav-buttons-container button.prev {
+    grid-column-start: 1;
+    grid-column-end: 2; }
+  header .nav-buttons-container button.next {
+    grid-column-start: 3;
+    grid-column-end: 4; }
+  header .nav-buttons-container button.week {
+    grid-row-start: 1;
+    grid-row-end: 2; }
+  header .nav-buttons-container button.day {
+    grid-row-start: 2;
+    grid-row-end: 3; }
+  header .nav-buttons-container button#todayBtn {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 3; }
+  header .link-buttons-container a button {
+    width: 100%; }
+
+@media only screen and (min-width: 576px) {
+  header h1 br {
+    display: none; } }
+main.homepage {
+  position: relative;
+  top: 140px; }
+  main.homepage section.results-container article {
+    width: 100%;
+    max-width: 480px;
+    margin: 0px auto 5px;
+    padding: 10px 15px;
+    border-bottom: 1px solid black; }
+    main.homepage section.results-container article form {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-column-gap: 15px; }
+      main.homepage section.results-container article form .result-item {
+        grid-column-start: span 6;
+        margin-bottom: 5px;
+        line-height: 26px; }
+        main.homepage section.results-container article form .result-item input {
+          line-height: 20px; }
+      main.homepage section.results-container article form .result-item.task-description-container {
+        grid-column-start: span 9; }
+      main.homepage section.results-container article form .result-item.task-type-container {
+        grid-column-start: span 3;
+        text-align: right; }
+      main.homepage section.results-container article form .result-item.task-travel-container input {
+        width: calc(100% - 45px);
+        background-color: transparent; }
+      main.homepage section.results-container article form .result-item.start-task-container input {
+        width: calc(100% - 70px);
+        background-color: transparent; }
+      main.homepage section.results-container article form .result-item.task-update-container input {
+        width: 100%; }
+      main.homepage section.results-container article form .change-status {
+        grid-column-start: span 4; }
+        main.homepage section.results-container article form .change-status button {
+          width: 100%; }
+  main.homepage section.results-container article[data-status='To Do'] {
+    background-color: #ffaaaa; }
+  main.homepage section.results-container article[data-status='Complete'] {
+    background-color: #aaffaa; }
+  main.homepage section.results-container article[data-status='Cancelled'] {
+    background-color: #aaaaaa; }
+  main.homepage section.results-container article[data-status='Postponed'] {
+    background-color: #aaaaaa; }
+
+@media only screen and (min-width: 768px) {
+  main.homepage section.results-container article {
+    max-width: none; }
+    main.homepage section.results-container article form .result-item,
+    main.homepage section.results-container article form .change-status {
+      grid-column-start: span 3; }
+    main.homepage section.results-container article form .result-item.task-description-container {
+      grid-column-start: span 6; }
+    main.homepage section.results-container article form .result-item.task-type-container {
+      text-align: center; }
+    main.homepage section.results-container article form .result-item.start-travel-container {
+      grid-column-start: 1;
+      grid-column-end: 4;
+      grid-row-start: 2; }
+    main.homepage section.results-container article form .result-item.task-travel-container {
+      grid-column-start: 4;
+      grid-column-end: 7;
+      grid-row-start: 2; }
+    main.homepage section.results-container article form .result-item.start-task-container {
+      grid-column-start: 1;
+      grid-column-end: 4;
+      grid-row-start: 3; }
+    main.homepage section.results-container article form .result-item.end-task-container {
+      grid-column-start: 4;
+      grid-column-end: 7;
+      grid-row-start: 3; }
+    main.homepage section.results-container article form .result-item.start-travel-container {
+      grid-column-start: 1;
+      grid-row-start: 2; }
+    main.homepage section.results-container article form .result-item.task-status-container {
+      text-align: right; } }
+
+/*# sourceMappingURL=main.css.map */
