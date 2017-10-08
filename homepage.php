@@ -138,7 +138,7 @@
 										End Task: <?= date('H:i',$instDateTime->getTimestamp()+60*$row['duration']); ?>
 									</div>
 									<div class="task-status-container result-item">
-										Status: <?= $row['status']; ?>
+										<?= $row['status']; ?>
 									</div>
 									<div class="task-update-container result-item">
 										<input id="<?= $row['instance_id']; ?>" class="fw" type="submit" value="Update" />

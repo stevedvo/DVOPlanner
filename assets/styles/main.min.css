@@ -65,8 +65,7 @@ main.homepage {
     width: 100%;
     max-width: 480px;
     margin: 0px auto 5px;
-    padding: 10px 15px;
-    border-bottom: 1px solid black; }
+    padding: 10px 15px; }
     main.homepage section.results-container article form {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
@@ -90,6 +89,8 @@ main.homepage {
         background-color: transparent; }
       main.homepage section.results-container article form .result-item.task-update-container input {
         width: 100%; }
+      main.homepage section.results-container article form .result-item.task-status-container {
+        font-weight: 700; }
       main.homepage section.results-container article form .change-status {
         grid-column-start: span 4; }
         main.homepage section.results-container article form .change-status button {
@@ -129,10 +130,83 @@ main.homepage {
       grid-column-start: 4;
       grid-column-end: 7;
       grid-row-start: 3; }
-    main.homepage section.results-container article form .result-item.start-travel-container {
-      grid-column-start: 1;
-      grid-row-start: 2; }
     main.homepage section.results-container article form .result-item.task-status-container {
       text-align: right; } }
+@media only screen and (min-width: 992px) {
+  main.homepage section.results-container article form .result-item,
+  main.homepage section.results-container article form .change-status {
+    grid-column-start: span 2; }
+  main.homepage section.results-container article form .result-item.task-description-container {
+    grid-column-start: span 4; }
+  main.homepage section.results-container article form .result-item.task-type-container {
+    grid-column-start: 5;
+    grid-column-end: 7;
+    grid-row-start: 2; }
+  main.homepage section.results-container article form .result-item.start-travel-container {
+    grid-column-start: span 2;
+    grid-column-end: auto;
+    grid-row-start: auto; }
+  main.homepage section.results-container article form .result-item.task-travel-container {
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 1; }
+  main.homepage section.results-container article form .result-item.start-task-container {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 2; }
+  main.homepage section.results-container article form .result-item.end-task-container {
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 2; }
+  main.homepage section.results-container article form .result-item.start-travel-container {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1; }
+  main.homepage section.results-container article form .result-item.task-status-container {
+    grid-column-start: 7;
+    grid-column-end: 9;
+    grid-row-start: 2; } }
+@media only screen and (min-width: 1200px) {
+  main.homepage section.results-container article form .result-item,
+  main.homepage section.results-container article form .change-status {
+    grid-column-start: span 1; }
+  main.homepage section.results-container article form .result-item.task-description-container {
+    grid-column-start: 5;
+    grid-column-end: 7;
+    align-self: center; }
+  main.homepage section.results-container article form .result-item.task-type-container {
+    grid-column-start: span 1;
+    grid-column-end: auto;
+    grid-row-start: auto;
+    align-self: center; }
+  main.homepage section.results-container article form .result-item.start-travel-container {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1; }
+  main.homepage section.results-container article form .result-item.task-travel-container {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1; }
+  main.homepage section.results-container article form .result-item.start-task-container {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 1; }
+  main.homepage section.results-container article form .result-item.end-task-container {
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 1; }
+  main.homepage section.results-container article form .result-item.task-status-container {
+    grid-column-start: span 1;
+    grid-column-end: auto;
+    grid-row-start: auto;
+    align-self: center; }
+  main.homepage section.results-container article form .result-item {
+    margin-bottom: 0px; }
+  main.homepage section.results-container article form .result-item.task-update-container input,
+  main.homepage section.results-container article form .change-status button {
+    height: 100%; }
+  main.homepage section.results-container article form .result-item.task-travel-container input,
+  main.homepage section.results-container article form .result-item.start-task-container input {
+    width: 100%; } }
 
 /*# sourceMappingURL=main.min.css.map */
