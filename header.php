@@ -16,18 +16,20 @@
 	<body>
 		<header>
 			<div class="container">
-				<h1><?= $date->format('l, d F Y') ?></h1>
-				<div class="nav-buttons-container">
-					<button class="prev week" id="prevWkBtn">&lt;&lt;7 days</button>
-					<button class="prev day" id="prevDayBtn">&lt;Prev Day</button>
-					<button class="" id="todayBtn">Today</button>
-					<button class="next day" id="nextDayBtn">Next Day&gt;</button>
-					<button class="next week" id="nextWkBtn">7 Days&gt;&gt;</button>
-				</div>
-				<div class="link-buttons-container">
-					<a href="newevent.php"><button>New Event</button></a>
-					<a href="viewevents.php"><button>View Events</button></a>
-					<a href="allinstances.php"><button>All Instances</button></a>
+				<div class="container-inner">
+					<h1><?= $date->format('l, d F Y') ?></h1>
+					<div class="nav-buttons-container">
+						<button class="prev week" id="prevWkBtn">&lt;&lt;7 days</button>
+						<button class="prev day" id="prevDayBtn">&lt;Prev Day</button>
+						<button class="" id="todayBtn">Today</button>
+						<button class="next day" id="nextDayBtn">Next Day&gt;</button>
+						<button class="next week" id="nextWkBtn">7 Days&gt;&gt;</button>
+					</div>
+					<div class="link-buttons-container">
+						<a href="newevent.php"><button>New Event</button></a>
+						<a href="viewevents.php"><button>View Events</button></a>
+						<a href="allinstances.php"><button>All Instances</button></a>
+					</div>
 				</div>
 			</div>
 		</header>
