@@ -1,7 +1,5 @@
 <?php
-	date_default_timezone_set('UTC');
-	// opens DB connexion
-	require ('../../init_DVOPlan.php');
+	include_once('site_init.php');
 ?>
 
 <!DOCTYPE html>

@@ -1,7 +1,5 @@
 <?php
-	date_default_timezone_set('UTC');
-	// opens DB connexion
-	require ('../../init_DVOPlan.php');
+	include_once('site_init.php');
 	$pageTitle = "All Instances";
 ?>
 
@@ -13,7 +11,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- additional options to content to prevent zooming on mobile devices, maximum-scale=1, user-scalable=no"-->
-		<title><?php echo $pageTitle; ?></title>
+		<title><?= $pageTitle; ?></title>
 		<script type="text/javascript" src="jQuery/jquery-1.12.3.min.js"></script>
 		<script type="text/javascript">
 			// anticipating this will be used in more interactive UI later
@@ -94,7 +92,7 @@
 	</head>
 
 	<body>
-		<h1><?php echo $pageTitle; ?></h1>
+		<h1><?= $pageTitle; ?></h1>
 		<a href="homepage.php"><button>Back To Today</button></a>
 		<a href="newevent.php"><button>Add Event</button></a>
 		<a href="viewevents.php"><button>View Events</button></a>

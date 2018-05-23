@@ -1,12 +1,11 @@
 <?php
-	date_default_timezone_set('UTC');
-	// opens DB connexion
-	require ('../../init_DVOPlan.php');
+	include_once('site_init.php');
 
 	(empty($_GET['offset'])) ? $offset = 0 : $offset = $_GET['offset'];
 
 	$timestamp = time() + $offset;
 	$date = new DateTime(date('Y-m-d', $timestamp));
+	$events = getAllEventsForQuickAdd();
 
 	include ('header.php');
 ?>
@@ -97,17 +96,16 @@
 			$q.= "ORDER BY time";
 			
 			$r = mysqli_query($planDB, $q);
-
-			if (mysqli_num_rows($r)===0)
-			{
-				echo "<p>No Events Today</p>";
-			}
-			else
-			{
 ?>
-				<div class="row">
-					<section class="results-container">
+			<div class="row">
+				<section class="results-container">
 <?php
+					if (mysqli_num_rows($r)===0)
+					{
+						echo "<p class='no-events'>No Events Today</p>";
+					}
+					else
+					{
 						while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC))
 						{
 							$instDateTime = new DateTime($row['date']. " ".$row['time']);
@@ -156,12 +154,11 @@
 							</article>
 <?php
 						}
+					}
 ?>
-					</section>
-				</div>
+				</section>
+			</div>
 <?php
-			}
-
 			mysqli_free_result($r);
 			mysqli_close($planDB);
 ?>
@@ -169,4 +166,3 @@
 	</main>
 <?php
 	include ('footer.php');
-?>
