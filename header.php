@@ -8,7 +8,7 @@
 		<!-- additional options to content to prevent zooming on mobile devices, maximum-scale=1, user-scalable=no"-->
 		<title><?= $date->format('D d M'); ?></title>
 		<link rel="stylesheet" type="text/css" href="assets/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" href="assets/styles/main.min.css" />
+		<link rel="stylesheet" type="text/css" href="assets/styles/main.css" />
 		<script type="text/javascript" src="jQuery/jquery-1.12.3.min.js"></script>
 		<script type="text/javascript" src="assets/scripts/main.js"></script>
 		<script type="text/javascript">

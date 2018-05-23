@@ -8,7 +8,7 @@ var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('styles', function()
 {
-	gulp.src("assets/sass/style.scss")
+	gulp.src("assets/styles/main.scss")
 	.pipe(sourcemaps.init())
 	.pipe(sass(
 	{
@@ -20,31 +20,32 @@ gulp.task('styles', function()
 		cascade: false
 	}))
 	.pipe(sourcemaps.write())
-	.pipe(gulp.dest('public/css'))
+	.pipe(gulp.dest('assets/styles'))
 	.pipe(notify(
 	{
 		message: 'Styles task complete'
 	}));
 });
 
-gulp.task('compress', function(cb)
-{
-	pump(
-	[
-		gulp.src('assets/js/*.js'),
-		uglify(),
-		gulp.dest('public/js')
-	],cb)
-	.pipe(notify(
-	{
-		message: 'Compress task complete'
-	}));
-});
+// gulp.task('compress', function(cb)
+// {
+// 	pump(
+// 	[
+// 		gulp.src('assets/js/*.js'),
+// 		uglify(),
+// 		gulp.dest('public/js')
+// 	],cb)
+// 	.pipe(notify(
+// 	{
+// 		message: 'Compress task complete'
+// 	}));
+// });
 
-gulp.task('default', ['styles', 'compress']);
+// gulp.task('default', ['styles', 'compress']);
+gulp.task('default', ['styles']);
 
 gulp.task('watch', function()
 {
-	gulp.watch("assets/sass/*.scss", ['styles']);
-	gulp.watch("assets/js/*.js", ['compress']);
+	gulp.watch("assets/styles/*.scss", ['styles']);
+	// gulp.watch("assets/js/*.js", ['compress']);
 });
