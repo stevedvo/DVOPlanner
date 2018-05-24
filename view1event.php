@@ -462,49 +462,58 @@
 					echo "</form>";
 
 					// output table of instances for this event
-					$q = "SELECT * ";
-					$q.= "FROM instances ";
-					$q.= "INNER JOIN events ON events.event_id = instances.event_id ";
-					$q.= "WHERE events.event_id = ".$_GET['event_id']." ";
-					$q.= "ORDER BY date";
+					$q = "SELECT * ".
+					     "FROM instances ".
+					     "INNER JOIN events ON events.event_id = instances.event_id ".
+					     "WHERE events.event_id = ".$_GET['event_id']." ".
+					     "ORDER BY date";
 
 					$r = mysqli_query($planDB, $q);
 
-					if (mysqli_num_rows($r)===0)
+					if (mysqli_num_rows($r) === 0)
 					{
 						echo "No Instances of '".$_GET['description']."' to display.";
 					}
 					else
 					{
-						echo "<table>";
-							echo "<tr>";
-								echo "<td>Date</td>";
-								echo "<td>Time</td>";
-								echo "<td>Status</td>";
-								echo "<td>Update</td>";
-							echo "</tr>";
+						$now = new DateTime();
+?>
+						<table>
+							<tr>
+								<td>Date</td>
+								<td>Time</td>
+								<td>Status</td>
+								<td>Update</td>
+							</tr>
+<?php
 							while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC))
 							{
 								$dateOffset = new DateTime($row['date']);
+								$diff = $now->diff($dateOffset);
+								$diffMonths = ($diff->y*12 + $diff->m)*$diff->invert;
 								$dateOffset = $dateOffset->getTimestamp() - time();
-								echo "<tr data-status='".$row['status']."'>";
-									echo "<form method='POST' action='".$_SERVER['REQUEST_URI']."'>";
-										echo "<input type='hidden' name='post_type' value='amend_inst'/>";
-										echo "<input type='hidden' name='instance_id' value='".$row['instance_id']."'/>";
-										echo "<td><input type='date' name='inst_date' value='".$row['date']."'/></td>";
-										echo "<td><input type='time' name='inst_time' value='".$row['time']."'/></td>";
-										echo "<td><a href='homepage.php?offset=".$dateOffset."'>".$row['status']."</a></td>";
-										echo "<td><input type='submit' value='Update'/></td>";
-									echo "</form>";
-								echo "</tr>";
+
+								$class = $diffMonths > 3 ? "historic" : "";
+?>
+								<tr class="<?= $class; ?>" data-status='<?= $row['status']; ?>'>
+									<form method='POST' action='<?= $_SERVER['REQUEST_URI']; ?>'>
+										<input type='hidden' name='post_type' value='amend_inst'/>
+										<input type='hidden' name='instance_id' value='<?= $row['instance_id']; ?>' />
+										<td><input type='date' name='inst_date' value='<?= $row['date']; ?>' /></td>
+										<td><input type='time' name='inst_time' value='<?= $row['time']; ?>' /></td>
+										<td><a href='homepage.php?offset=<?= $dateOffset; ?>'><?= $row['status']; ?></a></td>
+										<td><input type='submit' value='Update' /></td>
+									</form>
+								</tr>
+<?php
 							}
-
+?>
+						</table>
+<?php
 					}
-					?>
+?>
 				</body>
-
 			</html>
 <?php
 		}
-
 	}
