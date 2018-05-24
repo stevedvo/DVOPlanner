@@ -1,5 +1,15 @@
 main.event-single
 {
+	position: relative;
+	top: 80px;
+	max-width: 480px;
+	margin: 0px auto;
+
+	@media only screen and (min-width: 768px)
+	{
+		// max-width: none;
+	}
+
 	button.historic-trigger
 	{
 		margin: 10px 0px;
@@ -8,5 +18,104 @@ main.event-single
 	.historic
 	{
 		display: none;
+	}
+
+	form
+	{
+		margin-bottom: 20px;
+
+		fieldset
+		{
+			legend
+			{
+				font-size: 14px;
+				font-weight: 700;
+				border: none;
+				margin-bottom: 5px;
+			}
+
+			.input-row
+			{
+				float: left;
+				width: 100%;
+
+				.name
+				{
+					float: left;
+					width: 40%;
+				}
+
+				.value
+				{
+					float: left;
+					width: 60%;
+
+					select,
+					input
+					{
+						width: 100%;
+						padding: 1px 5px;
+					}
+				}
+			}
+		}
+	}
+
+	.results-container
+	{
+		.list-header
+		{
+			display: none;
+			.column-heading
+			{
+				text-align: center;
+			}
+		}
+
+		.list-body
+		{
+			.list-item
+			{
+				margin-bottom: 5px;
+				padding: 5px 0px;
+
+				*
+				{
+					background-color: inherit;
+				}
+
+				.column-data
+				{
+					float: left;
+					width: 50%;
+					padding: 0px 15px;
+
+					input
+					{
+						width: 100%;
+					}
+				}
+
+				&[data-status='To Do']
+				{
+					background-color: #FAA;
+				}
+
+				&[data-status='Complete']
+				{
+					background-color: #AFA;
+				}
+
+				&[data-status='Postponed']
+				{
+					background-color: #AAA;
+				}
+
+				&[data-status='Cancelled']
+				{
+					background-color: #AAA;
+				}
+			}
+		}
 	}
 }
