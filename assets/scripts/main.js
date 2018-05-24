@@ -42,6 +42,7 @@ function init()
 
 	addStatusUpdateActions();
 	autoCompleteQuickAdd();
+	toggleHistoricInstances();
 }
 
 document.addEventListener("DOMContentLoaded", init, false);
@@ -279,5 +280,24 @@ function addStatusUpdateActions()
 		{
 			console.log(data);
 		});
+	});
+}
+
+function toggleHistoricInstances()
+{
+	$("button.historic-trigger").click(function()
+	{
+		if ($(this).hasClass("clicked"))
+		{
+			$(".historic").slideUp();
+			$(this).removeClass("clicked");
+			$(this).text("Show Historic");
+		}
+		else
+		{
+			$(".historic").slideDown();
+			$(this).addClass("clicked");
+			$(this).text("Hide Historic");
+		}
 	});
 }
