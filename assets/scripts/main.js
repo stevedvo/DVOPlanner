@@ -81,7 +81,7 @@ function autoCompleteQuickAdd()
 					}
 				})
 			}
-			
+
 			if (results.length > 0)
 			{
 				$("ul.autocomplete-container").append(results);
@@ -197,63 +197,87 @@ function addStatusUpdateActions()
 	$(".markComp").click(function(e)
 	{
 		e.preventDefault();
-		$(this).parents("article").attr("data-status", "Complete");
-		$(this).parents("article").find(".task-status-container").html("Complete");
+		$this = $(this);
 		$.ajax(
 		{
-			type: 	"POST",
-			url: 	"ajaxStatus.php",
-			data:
+			type    : "POST",
+			url     : "ajaxStatus.php",
+			data    :
 			{
-				instID: 	$(this).attr("data-instID"), 
-				instStatus:	"'Complete'"
+				instID      : $this.attr("data-instID"),
+				instStatus  : "'Complete'"
 			}
+		}).done(function(data)
+		{
+			console.log(data);
+			$this.parents("article").attr("data-status", "Complete");
+			$this.parents("article").find(".task-status-container").html("Complete");
+		}).fail(function(data)
+		{
+			console.log(data);
 		});
 	});
 
 	$(".markCanx").click(function(e)
 	{
 		e.preventDefault();
-		$(this).parents("article").attr("data-status", "Cancelled");
-		$(this).parents("article").find(".task-status-container").html("Cancelled");
+		$this = $(this);
 		$.ajax(
 		{
-			type: 	"POST",
-			url: 	"ajaxStatus.php",
-			data:
+			type    : "POST",
+			url     : "ajaxStatus.php",
+			data    :
 			{
-				instID: 	$(this).attr("data-instID"), 
-				instStatus:	"'Cancelled'"
+				instID      : $this.attr("data-instID"),
+				instStatus  : "'Cancelled'"
 			}
+		}).done(function(data)
+		{
+			$this.parents("article").attr("data-status", "Cancelled");
+			$this.parents("article").find(".task-status-container").html("Cancelled");
+		}).fail(function(data)
+		{
+			console.log(data);
 		});
 	});
 
 	$(".mark2mo").click(function(e)
 	{
 		e.preventDefault();
-		$(this).parents("article").attr("data-status", "Postponed");
-		$(this).parents("article").find(".task-status-container").html("Postponed");
+		$this = $(this);
 		$.ajax(
 		{
-			type: 	"POST",
-			url: 	"ajaxStatus.php",
-			data:
+			type    : "POST",
+			url     : "ajaxNewInst.php?offset="+offset,
+			data    :
 			{
-				instID: 	$(this).attr("data-instID"), 
-				instStatus: "'Postponed'"
+				eventID         : $this.attr("data-eventID"),
+				instNewDate     : $this.attr("data-newDate"),
+				instTime        : $this.attr("data-instTime"),
+				instTravel      : $this.attr("data-travelTime")
 			}
-		});
-		$.ajax(
+		}).done(function(data)
 		{
-			type: 	"POST",
-			url: 	"ajaxNewInst.php?offset="+offset,
-			data:
+			$.ajax(
 			{
-				eventID: 		$(this).attr("data-eventID"),
-				instNewDate: 	$(this).attr("data-newDate"),  
-				instTime: 		$(this).attr("data-instTime"),  
-				instTravel: 	$(this).attr("data-travelTime")
-			}
+				type    : "POST",
+				url     : "ajaxStatus.php",
+				data    :
+				{
+					instID      : $this.attr("data-instID"),
+					instStatus  : "'Postponed'"
+				}
+			}).done(function(data)
+			{
+				$this.parents("article").attr("data-status", "Postponed");
+				$this.parents("article").find(".task-status-container").html("Postponed");
+			}).fail(function(data)
+			{
+				console.log(data);
+			});
+		}).fail(function(data)
+		{
+			console.log(data);
 		});
 	});
 }
