@@ -1,119 +1,177 @@
-main.event-single
+body.event-single
 {
-	position: relative;
-	top: 80px;
-	max-width: 480px;
-	margin: 0px auto;
-
-	@media only screen and (min-width: 768px)
+	header
 	{
-		// max-width: none;
-	}
-
-	button.historic-trigger
-	{
-		margin: 10px 0px;
-	}
-
-	.historic
-	{
-		display: none;
-	}
-
-	form
-	{
-		margin-bottom: 20px;
-
-		fieldset
+		.container-inner
 		{
-			legend
-			{
-				font-size: 14px;
-				font-weight: 700;
-				border: none;
-				margin-bottom: 5px;
-			}
+			margin: 0px auto;
 
-			.input-row
+			h1
 			{
 				float: left;
 				width: 100%;
+			}
 
-				.name
-				{
-					float: left;
-					width: 40%;
-				}
-
-				.value
-				{
-					float: left;
-					width: 60%;
-
-					select,
-					input
-					{
-						width: 100%;
-						padding: 1px 5px;
-					}
-				}
+			.nav-container
+			{
+				float: left;
+				width: 100%;
+				margin-bottom: 10px;
 			}
 		}
 	}
 
-	.results-container
+	main
 	{
-		.list-header
+		position: relative;
+		top: 90px;
+
+		.container-inner
 		{
-			display: none;
-			.column-heading
+			max-width: 480px;
+			margin: 0px auto;
+
+			@media only screen and (min-width: 768px)
 			{
-				text-align: center;
+				max-width: none;
 			}
-		}
 
-		.list-body
-		{
-			.list-item
+			button.historic-trigger
 			{
-				margin-bottom: 5px;
-				padding: 5px 0px;
+				margin: 10px 0px;
+			}
 
-				*
+			.historic
+			{
+				display: none;
+			}
+
+			form.amend-event,
+			form.add-instance
+			{
+				margin-bottom: 20px;
+
+				fieldset
 				{
-					background-color: inherit;
-				}
-
-				.column-data
-				{
-					float: left;
-					width: 50%;
-					padding: 0px 15px;
-
-					input
+					legend
 					{
+						font-size: 14px;
+						font-weight: 700;
+						border: none;
+						margin-bottom: 5px;
+					}
+
+					.input-row
+					{
+						float: left;
 						width: 100%;
+
+						.name
+						{
+							float: left;
+							width: 40%;
+						}
+
+						.value
+						{
+							float: left;
+							width: 60%;
+
+							select,
+							input
+							{
+								width: 100%;
+								padding: 1px 5px;
+							}
+						}
 					}
 				}
 
-				&[data-status='To Do']
+				@media only screen and (min-width: 768px)
 				{
-					background-color: #FAA;
+					float: left;
+					width: 50%;
+				}
+			}
+
+			.results-container
+			{
+				.list-header
+				{
+					display: none;
+					.column-heading
+					{
+						text-align: center;
+					}
 				}
 
-				&[data-status='Complete']
+				.list-body
 				{
-					background-color: #AFA;
-				}
+					.list-item
+					{
+						margin-bottom: 5px;
+						padding: 5px 0px;
 
-				&[data-status='Postponed']
-				{
-					background-color: #AAA;
-				}
+						*
+						{
+							background-color: inherit;
+						}
 
-				&[data-status='Cancelled']
-				{
-					background-color: #AAA;
+						.column-data
+						{
+							float: left;
+							width: 50%;
+							padding: 0px 5px;
+
+							input
+							{
+								width: 100%;
+							}
+
+							@media only screen and (min-width: 576px)
+							{
+								&.date
+								{
+									width: 35%;
+								}
+
+								&.time
+								{
+									width: 25%;
+								}
+
+								&.status
+								{
+									width: 20%;
+								}
+
+								&.update
+								{
+									width: 20%;
+								}
+							}
+						}
+
+						&[data-status='To Do']
+						{
+							background-color: #FAA;
+						}
+
+						&[data-status='Complete']
+						{
+							background-color: #AFA;
+						}
+
+						&[data-status='Postponed']
+						{
+							background-color: #AAA;
+						}
+
+						&[data-status='Cancelled']
+						{
+							background-color: #AAA;
+						}
+					}
 				}
 			}
 		}

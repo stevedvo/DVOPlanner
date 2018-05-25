@@ -36,14 +36,16 @@
 					<script type="text/javascript" src="assets/scripts/main.js"></script>
 				</head>
 
-				<body>
+				<body class="event-single">
 					<header>
 						<div class="container">
 							<div class="container-inner">
 								<h1><?= $pageTitle; ?></h1>
-								<a href="homepage.php"><button>Back To Today</button></a>
-								<a href="newevent.php"><button>Add Event</button></a>
-								<a href="viewevents.php"><button>View Events</button></a>
+								<div class="nav-container">
+									<a href="homepage.php"><button>Back To Today</button></a>
+									<a href="newevent.php"><button>Add Event</button></a>
+									<a href="viewevents.php"><button>View Events</button></a>
+								</div>
 <?php
 								if ($_SERVER['REQUEST_METHOD']==="POST")
 								{
@@ -366,183 +368,187 @@
 						</div>
 					</header>
 
-					<main class="event-single">
+					<main>
 						<div class="container">
+							<div class="container-inner">
 <?php
-							$q = "SELECT * ";
-							$q.= "FROM events ";
-							$q.= "WHERE event_id = ".$_GET['event_id'];
+								$q = "SELECT * ";
+								$q.= "FROM events ";
+								$q.= "WHERE event_id = ".$_GET['event_id'];
 
-							$r = mysqli_query($planDB, $q);
-							$event = mysqli_fetch_array($r, MYSQLI_ASSOC);
+								$r = mysqli_query($planDB, $q);
+								$event = mysqli_fetch_array($r, MYSQLI_ASSOC);
 ?>
-							<!-- form to amend basic event details -->
-							<form method='POST' action='<?= $_SERVER['REQUEST_URI']; ?>'>
-								<input type='hidden' name='post_type' value='amend_event' />
-								<input type='hidden' name='event_id' value='<?= $_GET['event_id']; ?>' />
-								<fieldset>
-									<legend>View / Amend Event Details</legend>
-									<div class="input-row">
-										<div class="name">
-											<p>Type:</p>
-										</div>
-										<div class="value">
-											<select name='type'>
-												<option <?= $event['type'] === "Task" ? "selected" : ""; ?> value='Task'>Task</option>
-												<option <?= $event['type'] === "Meeting" ? "selected" : ""; ?> value='Meeting'>Meeting</option>
-												<option <?= $event['type'] === "Appointment" ? "selected" : ""; ?> value='Appointment'>Appointment</option>
-											</select>
-										</div>
-									</div>
-									<div class="input-row">
-										<div class="name">
-											<p>Description:</p>
-										</div>
-										<div class="value">
-											<input name='description' value='<?= $event['description']; ?>' />
-										</div>
-									</div>
-									<div class="input-row">
-										<div class="name">
-											<p>Duration (mins):</p>
-										</div>
-										<div class="value">
-											<input name='duration' type='number' min='0' value='<?= $event['duration']; ?>' />
-										</div>
-									</div>
-									<input type='submit' value='Amend Details' />
-								</fieldset>
-							</form>
-
-							<!-- form to add new instance(s) -->
-							<form method='POST' action='<?= $_SERVER['REQUEST_URI']; ?>'>
-								<input type='hidden' name='post_type' value='add_inst' >
-								<input type='hidden' name='event_id' value='<?= $_GET['event_id']; ?>' />
-								<fieldset>
-									<legend>Add New Instance(s)</legend>
-									<div class="input-row">
-										<div class="name">
-											<p>Date:</p>
-										</div>
-										<div class="value">
-											<input type='date' name='inst_date' placeholder='Required [yyyy-mm-dd]' />
-										</div>
-									</div>
-									<div class="input-row">
-										<div class="name">
-											<p>Time:</p>
-										</div>
-										<div class="value">
-											<input type='time' name='inst_time' placeholder='Optional [HH:mm]' />
-										</div>
-									</div>
-									<div class="input-row">
-										<div class="name">
-											<p>Repeat:</p>
-										</div>
-										<div class="value">
-											<select name='event_repeat'>
-													<option selected value='No_Repeat'>No Repeat</option>
-													<option value='Weekdays'>Weekdays</option>
-													<option value='Every_Day'>Every Day</option>
-													<option value='Weekly'>Weekly</option>
-													<option value='Fortnightly'>Fortnightly</option>
-													<option value='Monthly'>Monthly</option>
-											</select>
-										</div>
-									</div>
-									<div class="input-row">
-										<div class="name">
-											<p>Until:</p>
-										</div>
-										<div class="value">
-											<input type='date' name='event_repeat_end' placeholder='Optional [yyyy-mm-dd]' />
-										</div>
-									</div>
-									<input type='submit' value='Add Instance(s)' />
-								</fieldset>
-							</form>
-
-							<!-- output table of instances for this event -->
-<?php
-							$q = "SELECT * ".
-							     "FROM instances ".
-							     "INNER JOIN events ON events.event_id = instances.event_id ".
-							     "WHERE events.event_id = ".$_GET['event_id']." ".
-							     "ORDER BY date";
-
-							$r = mysqli_query($planDB, $q);
-
-							if (mysqli_num_rows($r) === 0)
-							{
-								echo "No Instances of '".$_GET['description']."' to display.";
-							}
-							else
-							{
-								$now = new DateTime();
-?>
-								<button class="historic-trigger">Show Historic</button>
-
-								<div class="results-container">
-									<div class="list-header row">
-										<div class="column-heading col-xs-5">
-											<p>Date</p>
-										</div>
-
-										<div class="column-heading col-xs-2">
-											<p>Time</p>
-										</div>
-
-										<div class="column-heading col-xs-3">
-											<p>Status</p>
-										</div>
-
-										<div class="column-heading col-xs-2">
-											<p>Update</p>
-										</div>
-									</div>
-
-									<div class="list-body">
-<?php
-										while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC))
-										{
-											$dateOffset = new DateTime($row['date']);
-											$diff = $now->diff($dateOffset);
-											$diffMonths = ($diff->y*12 + $diff->m)*$diff->invert;
-											$dateOffset = $dateOffset->getTimestamp() - time();
-
-											$class = $diffMonths > 3 ? "historic" : "";
-?>
-											<div class="row list-item <?= $class; ?>" data-status="<?= $row['status']; ?>">
-												<form method='POST' action='<?= $_SERVER['REQUEST_URI']; ?>'>
-													<input type='hidden' name='post_type' value='amend_inst'/>
-													<input type='hidden' name='instance_id' value='<?= $row['instance_id']; ?>' />
-
-													<div class="column-data date">
-														<input type='date' name='inst_date' value='<?= $row['date']; ?>' />
-													</div>
-
-													<div class="column-data time">
-														<input type='time' name='inst_time' value='<?= $row['time']; ?>' />
-													</div>
-
-													<div class="column-data status">
-														<a href='homepage.php?offset=<?= $dateOffset; ?>'><?= $row['status']; ?></a>
-													</div>
-
-													<div class="column-data update">
-														<input type='submit' value='Update' />
-													</div>
-												</form>
+								<div class="row">
+									<!-- form to amend basic event details -->
+									<form class="amend-event col-sm-6" method='POST' action='<?= $_SERVER['REQUEST_URI']; ?>'>
+										<input type='hidden' name='post_type' value='amend_event' />
+										<input type='hidden' name='event_id' value='<?= $_GET['event_id']; ?>' />
+										<fieldset>
+											<legend>View / Amend Event Details</legend>
+											<div class="input-row">
+												<div class="name">
+													<p>Type:</p>
+												</div>
+												<div class="value">
+													<select name='type'>
+														<option <?= $event['type'] === "Task" ? "selected" : ""; ?> value='Task'>Task</option>
+														<option <?= $event['type'] === "Meeting" ? "selected" : ""; ?> value='Meeting'>Meeting</option>
+														<option <?= $event['type'] === "Appointment" ? "selected" : ""; ?> value='Appointment'>Appointment</option>
+													</select>
+												</div>
 											</div>
-<?php
-										}
-?>
-									</div>
+											<div class="input-row">
+												<div class="name">
+													<p>Description:</p>
+												</div>
+												<div class="value">
+													<input name='description' value='<?= $event['description']; ?>' />
+												</div>
+											</div>
+											<div class="input-row">
+												<div class="name">
+													<p>Duration (mins):</p>
+												</div>
+												<div class="value">
+													<input name='duration' type='number' min='0' value='<?= $event['duration']; ?>' />
+												</div>
+											</div>
+											<input type='submit' value='Amend Details' />
+										</fieldset>
+									</form>
+
+									<!-- form to add new instance(s) -->
+									<form class="add-instance col-sm-6" method='POST' action='<?= $_SERVER['REQUEST_URI']; ?>'>
+										<input type='hidden' name='post_type' value='add_inst' >
+										<input type='hidden' name='event_id' value='<?= $_GET['event_id']; ?>' />
+										<fieldset>
+											<legend>Add New Instance(s)</legend>
+											<div class="input-row">
+												<div class="name">
+													<p>Date:</p>
+												</div>
+												<div class="value">
+													<input type='date' name='inst_date' placeholder='Required [yyyy-mm-dd]' />
+												</div>
+											</div>
+											<div class="input-row">
+												<div class="name">
+													<p>Time:</p>
+												</div>
+												<div class="value">
+													<input type='time' name='inst_time' placeholder='Optional [HH:mm]' />
+												</div>
+											</div>
+											<div class="input-row">
+												<div class="name">
+													<p>Repeat:</p>
+												</div>
+												<div class="value">
+													<select name='event_repeat'>
+															<option selected value='No_Repeat'>No Repeat</option>
+															<option value='Weekdays'>Weekdays</option>
+															<option value='Every_Day'>Every Day</option>
+															<option value='Weekly'>Weekly</option>
+															<option value='Fortnightly'>Fortnightly</option>
+															<option value='Monthly'>Monthly</option>
+													</select>
+												</div>
+											</div>
+											<div class="input-row">
+												<div class="name">
+													<p>Until:</p>
+												</div>
+												<div class="value">
+													<input type='date' name='event_repeat_end' placeholder='Optional [yyyy-mm-dd]' />
+												</div>
+											</div>
+											<input type='submit' value='Add Instance(s)' />
+										</fieldset>
+									</form>
 								</div>
+
+								<!-- output table of instances for this event -->
 <?php
-							}
+								$q = "SELECT * ".
+								     "FROM instances ".
+								     "INNER JOIN events ON events.event_id = instances.event_id ".
+								     "WHERE events.event_id = ".$_GET['event_id']." ".
+								     "ORDER BY date";
+
+								$r = mysqli_query($planDB, $q);
+
+								if (mysqli_num_rows($r) === 0)
+								{
+									echo "No Instances of '".$_GET['description']."' to display.";
+								}
+								else
+								{
+									$now = new DateTime();
 ?>
+									<button class="historic-trigger">Show Historic</button>
+
+									<div class="results-container">
+										<div class="list-header row">
+											<div class="column-heading col-xs-5">
+												<p>Date</p>
+											</div>
+
+											<div class="column-heading col-xs-2">
+												<p>Time</p>
+											</div>
+
+											<div class="column-heading col-xs-3">
+												<p>Status</p>
+											</div>
+
+											<div class="column-heading col-xs-2">
+												<p>Update</p>
+											</div>
+										</div>
+
+										<div class="list-body col-xs-12">
+<?php
+											while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC))
+											{
+												$dateOffset = new DateTime($row['date']);
+												$diff = $now->diff($dateOffset);
+												$diffMonths = ($diff->y*12 + $diff->m)*$diff->invert;
+												$dateOffset = $dateOffset->getTimestamp() - time();
+
+												$class = $diffMonths > 3 ? "historic" : "";
+?>
+												<div class="row list-item <?= $class; ?>" data-status="<?= $row['status']; ?>">
+													<form method='POST' action='<?= $_SERVER['REQUEST_URI']; ?>'>
+														<input type='hidden' name='post_type' value='amend_inst'/>
+														<input type='hidden' name='instance_id' value='<?= $row['instance_id']; ?>' />
+
+														<div class="column-data date">
+															<input type='date' name='inst_date' value='<?= $row['date']; ?>' />
+														</div>
+
+														<div class="column-data time">
+															<input type='time' name='inst_time' value='<?= $row['time']; ?>' />
+														</div>
+
+														<div class="column-data status">
+															<a href='homepage.php?offset=<?= $dateOffset; ?>'><?= $row['status']; ?></a>
+														</div>
+
+														<div class="column-data update">
+															<input type='submit' value='Update' />
+														</div>
+													</form>
+												</div>
+<?php
+											}
+?>
+										</div>
+									</div>
+<?php
+								}
+?>
+							</div>
 						</div>
 					</main>
 				</body>
