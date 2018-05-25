@@ -516,7 +516,7 @@
 												$diffMonths = ($diff->y*12 + $diff->m)*$diff->invert;
 												$dateOffset = $dateOffset->getTimestamp() - time();
 
-												$class = $diffMonths > 3 ? "historic" : "";
+												$class = $diffMonths > 1 ? "historic" : "";
 ?>
 												<div class="row list-item <?= $class; ?>" data-status="<?= $row['status']; ?>">
 													<form method='POST' action='<?= $_SERVER['REQUEST_URI']; ?>'>
