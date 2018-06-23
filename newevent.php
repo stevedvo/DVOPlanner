@@ -300,11 +300,11 @@
 											echo "selected ";
 										}
 										echo "value='Meeting'>Meeting</option><option ";
-										if ($_POST['event_type'] === "Appointment")
+										if ($_POST['event_type'] === "Appt")
 										{
 											echo "selected ";
 										}
-										echo "value='Appointment'>Appointment</option>";
+										echo "value='Appt'>Appt</option>";
 									}
 									else
 									{
@@ -312,7 +312,7 @@
 										"
 											<option selected value='Task'>Task</option>
 											<option value='Meeting'>Meeting</option>
-											<option value='Appointment'>Appointment</option>
+											<option value='Appt'>Appt</option>
 										";
 									}
 								?>

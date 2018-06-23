@@ -394,7 +394,7 @@
 													<select name='type'>
 														<option <?= $event['type'] === "Task" ? "selected" : ""; ?> value='Task'>Task</option>
 														<option <?= $event['type'] === "Meeting" ? "selected" : ""; ?> value='Meeting'>Meeting</option>
-														<option <?= $event['type'] === "Appointment" ? "selected" : ""; ?> value='Appointment'>Appointment</option>
+														<option <?= $event['type'] === "Appt" ? "selected" : ""; ?> value='Appt'>Appt</option>
 													</select>
 												</div>
 											</div>
