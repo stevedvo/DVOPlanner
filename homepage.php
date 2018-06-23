@@ -130,6 +130,9 @@
 									<div class="task-status-container result-item">
 										<?= $instance['status']; ?>
 									</div>
+									<div class="event-next-instance-container result-item">
+										Next: <?= $instance['next_instance'] ? "<a href='/homepage.php?offset=".($instance['next_instance']->getTimestamp() - time())."'>".$instance['next_instance']->format('d-M')."</a>" : "None"; ?>
+									</div>
 									<div class="task-update-container result-item">
 										<input id="<?= $instance['instance_id']; ?>" class="fw" type="submit" value="Update" />
 									</div>
