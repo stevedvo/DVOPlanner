@@ -139,3 +139,51 @@
 
 		return $errors;
 	}
+
+	function getAllEvents()
+	{
+		global $planDB;
+		$events = false;
+
+		$query = $planDB->prepare("SELECT e.event_id, e.type, e.description, e.duration, i.instance_id, i.date, i.time, i.travel_time, i.status FROM events AS e LEFT JOIN instances AS i ON (i.event_id = e.event_id) ORDER BY e.description, i.date");
+		$query->execute();
+
+		$result = $query->get_result();
+
+		if ($result->num_rows)
+		{
+			$events = $instances = $event_dictonary = [];
+
+			while ($row = $result->fetch_assoc())
+			{
+				if (!array_key_exists($row['event_id'], $event_dictonary))
+				{
+					$event_dictonary[$row['event_id']] = $row['event_id'];
+					$events[$row['event_id']]['event_id'] = $row['event_id'];
+					$events[$row['event_id']]['type'] = $row['type'];
+					$events[$row['event_id']]['description'] = $row['description'];
+					$events[$row['event_id']]['duration'] = $row['duration'];
+
+					if (!is_null($row['instance_id']))
+					{
+						$events[$row['event_id']]['instances'][$row['instance_id']]['date'] = $row['date'];
+						$events[$row['event_id']]['instances'][$row['instance_id']]['time'] = $row['time'];
+						$events[$row['event_id']]['instances'][$row['instance_id']]['travel_time'] = $row['travel_time'];
+						$events[$row['event_id']]['instances'][$row['instance_id']]['status'] = $row['status'];
+					}
+				}
+				else
+				{
+					if (!is_null($row['instance_id']))
+					{
+						$events[$row['event_id']]['instances'][$row['instance_id']]['date'] = $row['date'];
+						$events[$row['event_id']]['instances'][$row['instance_id']]['time'] = $row['time'];
+						$events[$row['event_id']]['instances'][$row['instance_id']]['travel_time'] = $row['travel_time'];
+						$events[$row['event_id']]['instances'][$row['instance_id']]['status'] = $row['status'];
+					}
+				}
+			}
+		}
+
+		return $events;
+	}
