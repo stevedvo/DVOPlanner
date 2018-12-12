@@ -35,7 +35,7 @@
 		if ($date instanceof DateTime)
 		{
 			$date_string = $date->format('Y-m-d');
-			$query = $planDB->prepare("SELECT i.instance_id, i.event_id, i.date, i.time, i.travel_time, i.status, e.type, e.description, e.duration FROM instances AS i INNER JOIN events AS e ON (i.event_id = e.event_id) WHERE i.date = ? ORDER BY i.time");
+			$query = $planDB->prepare("SELECT i.instance_id, i.event_id, i.date, i.time, i.travel_time, i.status, e.type, e.description, e.duration, e.archived FROM instances AS i INNER JOIN events AS e ON (i.event_id = e.event_id) WHERE i.date = ? ORDER BY i.time");
 			$query->bind_param("s", $date_string);
 			$query->execute();
 
@@ -98,21 +98,7 @@
 	{
 		global $planDB;
 		$errors = [];
-		$eventDuration = $eventDesc = $eventId = null;
-
-		if (isset($_POST['event_desc']) && !empty($_POST['event_desc']))
-		{
-			$eventDesc = $_POST['event_desc'];
-		}
-		else
-		{
-			$errors[] = "Please include a description for the event.";
-		}
-
-		if (isset($_POST['event_duration']) && is_numeric($_POST['event_duration']))
-		{
-			$eventDuration = $_POST['event_duration'];
-		}
+		$eventType = $eventDuration = $eventDesc = $eventId = null;
 
 		if (isset($_POST['event_id']) && is_numeric($_POST['event_id']))
 		{
@@ -123,10 +109,42 @@
 			$errors[] = "Invalid Event ID";
 		}
 
+		if (isset($_POST['event_desc']) && !empty($_POST['event_desc']))
+		{
+			$eventDesc = $_POST['event_desc'];
+		}
+		else
+		{
+			$errors[] = "Please include a description for the event.";
+		}
+
+		if (isset($_POST['event_type']) && !empty($_POST['event_type']))
+		{
+			$eventType = $_POST['event_type'];
+		}
+		else
+		{
+			$errors[] = "Please select a type for the event.";
+		}
+
+		if (isset($_POST['event_duration']) && is_numeric($_POST['event_duration']))
+		{
+			$eventDuration = $_POST['event_duration'];
+		}
+
+		if (isset($_POST['e_archived']) && is_numeric($_POST['e_archived']))
+		{
+			$eventArchived = 1;
+		}
+		else
+		{
+			$eventArchived = 0;
+		}
+
 		if (empty($errors))
 		{
-			$query = $planDB->prepare("UPDATE events SET duration = ?, description = ? WHERE event_id = ?");
-			$query->bind_param("isi", $eventDuration, $eventDesc, $eventId);
+			$query = $planDB->prepare("UPDATE events SET type = ?, description = ?, duration = ?, archived = ? WHERE event_id = ?");
+			$query->bind_param("ssiii", $eventType, $eventDesc, $eventDuration, $eventArchived, $eventId);
 			$query->execute();
 
 			$result = $query->affected_rows;
@@ -145,7 +163,7 @@
 		global $planDB;
 		$events = false;
 
-		$query = $planDB->prepare("SELECT e.event_id, e.type, e.description, e.duration, i.instance_id, i.date, i.time, i.travel_time, i.status FROM events AS e LEFT JOIN instances AS i ON (i.event_id = e.event_id) ORDER BY e.description, i.date");
+		$query = $planDB->prepare("SELECT e.event_id, e.type, e.description, e.duration, e.archived, i.instance_id, i.date, i.time, i.travel_time, i.status FROM events AS e LEFT JOIN instances AS i ON (i.event_id = e.event_id) ORDER BY e.description, i.date");
 		$query->execute();
 
 		$result = $query->get_result();
@@ -163,6 +181,7 @@
 					$events[$row['event_id']]['type'] = $row['type'];
 					$events[$row['event_id']]['description'] = $row['description'];
 					$events[$row['event_id']]['duration'] = $row['duration'];
+					$events[$row['event_id']]['archived'] = $row['archived'];
 
 					if (!is_null($row['instance_id']))
 					{

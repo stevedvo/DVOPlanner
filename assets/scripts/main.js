@@ -43,6 +43,7 @@ function init()
 	addStatusUpdateActions();
 	autoCompleteQuickAdd();
 	toggleHistoricInstances();
+	toggleArchivedEvents();
 }
 
 document.addEventListener("DOMContentLoaded", init, false);
@@ -300,6 +301,25 @@ function toggleHistoricInstances()
 			$(".historic").slideDown();
 			$(this).addClass("clicked");
 			$(this).text("Hide Historic");
+		}
+	});
+}
+
+function toggleArchivedEvents()
+{
+	$("button.show-archived-trigger").click(function()
+	{
+		if ($(this).hasClass("clicked"))
+		{
+			$("tr.archived").slideUp();
+			$(this).removeClass("clicked");
+			$(this).text("Show Archived");
+		}
+		else
+		{
+			$("tr.archived").slideDown();
+			$(this).addClass("clicked");
+			$(this).text("Hide Archived");
 		}
 	});
 }

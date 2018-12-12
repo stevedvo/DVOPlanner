@@ -47,58 +47,16 @@
 									<a href="viewevents.php"><button>View Events</button></a>
 								</div>
 <?php
-								if ($_SERVER['REQUEST_METHOD']==="POST")
+								if ($_SERVER['REQUEST_METHOD'] === "POST")
 								{
 									$errors = [];
 
-									if ($_POST['post_type']=="amend_event")
+									if ($_POST['post_type'] == "amend_event")
 									{
-										if (empty($_POST['description']))
-										{
-											$errors[] = "Need an event description.";
-										}
-										else
-										{
-											$eventDesc = $_POST['description'];
-										}
-
-										if (empty($_POST['duration']))
-										{
-											$eventDuration = NULL;
-										}
-										else
-										{
-											$eventDuration = $_POST['duration'];
-										}
-
-										if (!empty($errors))
-										{
-											echo "<h3>Error!</h3>";
-											echo "<ul>";
-											foreach ($errors as $msg)
-											{
-												echo "<li>".$msg."</li>";
-											}
-											echo "</ul>";
-										}
-										else // only triggers if no errors
-										{
-											$q = "UPDATE events ";
-											$q.= "SET type = '".$_POST['type']."', description = '".$eventDesc."', duration = ";
-											if (is_null($eventDuration))
-											{
-												$q.= "NULL ";
-											}
-											else
-											{
-												$q.= $eventDuration." ";
-											}
-											$q.= "WHERE event_id = ".$_POST['event_id'];
-
-											$r = mysqli_query($planDB, $q);
-										}
+										$update_result = updateEvent($_POST);
 									}
-									if ($_POST['post_type']=="add_inst")
+
+									if ($_POST['post_type'] == "add_inst")
 									{
 										if (empty($_POST['inst_date']))
 										{
@@ -391,7 +349,7 @@
 													<p>Type:</p>
 												</div>
 												<div class="value">
-													<select name='type'>
+													<select name='event_type'>
 														<option <?= $event['type'] === "Task" ? "selected" : ""; ?> value='Task'>Task</option>
 														<option <?= $event['type'] === "Meeting" ? "selected" : ""; ?> value='Meeting'>Meeting</option>
 														<option <?= $event['type'] === "Appt" ? "selected" : ""; ?> value='Appt'>Appt</option>
@@ -403,7 +361,7 @@
 													<p>Description:</p>
 												</div>
 												<div class="value">
-													<input name='description' value='<?= $event['description']; ?>' />
+													<input name='event_desc' value='<?= $event['description']; ?>' />
 												</div>
 											</div>
 											<div class="input-row">
@@ -411,7 +369,15 @@
 													<p>Duration (mins):</p>
 												</div>
 												<div class="value">
-													<input name='duration' type='number' min='0' value='<?= $event['duration']; ?>' />
+													<input name='event_duration' type='number' min='0' value='<?= $event['duration']; ?>' />
+												</div>
+											</div>
+											<div class="input-row">
+												<div class="name">
+													<p>Archived:</p>
+												</div>
+												<div class="value">
+													<input type="checkbox" name="e_archived" value="1" <?= $event['archived'] ? 'checked' : ''; ?> />
 												</div>
 											</div>
 											<input type='submit' value='Amend Details' />
@@ -480,7 +446,7 @@
 
 								if (mysqli_num_rows($r) === 0)
 								{
-									echo "No Instances of '".$_GET['description']."' to display.";
+									echo "No Instances of '".$event['description']."' to display.";
 								}
 								else
 								{
