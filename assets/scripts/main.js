@@ -155,6 +155,8 @@ function autoCompleteQuickAdd()
 								'<div class="task-status-container result-item">'+
 									'To Do'+
 								'</div>'+
+								'<div class="event-next-instance-container result-item">'+
+								'</div>'+
 								'<div class="task-update-container result-item">'+
 									'<input id="'+data+'" class="fw" type="submit" value="Update" />'+
 								'</div>'+
