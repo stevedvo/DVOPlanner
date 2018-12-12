@@ -93,3 +93,49 @@
 
 		return $instances;
 	}
+
+	function updateEvent($request)
+	{
+		global $planDB;
+		$errors = [];
+		$eventDuration = $eventDesc = $eventId = null;
+
+		if (isset($_POST['event_desc']) && !empty($_POST['event_desc']))
+		{
+			$eventDesc = $_POST['event_desc'];
+		}
+		else
+		{
+			$errors[] = "Please include a description for the event.";
+		}
+
+		if (isset($_POST['event_duration']) && is_numeric($_POST['event_duration']))
+		{
+			$eventDuration = $_POST['event_duration'];
+		}
+
+		if (isset($_POST['event_id']) && is_numeric($_POST['event_id']))
+		{
+			$eventId = $_POST['event_id'];
+		}
+		else
+		{
+			$errors[] = "Invalid Event ID";
+		}
+
+		if (empty($errors))
+		{
+			$query = $planDB->prepare("UPDATE events SET duration = ?, description = ? WHERE event_id = ?");
+			$query->bind_param("isi", $eventDuration, $eventDesc, $eventId);
+			$query->execute();
+
+			$result = $query->affected_rows;
+
+			if (!$result)
+			{
+				$errors[] = "No Events updated.";
+			}
+		}
+
+		return $errors;
+	}
