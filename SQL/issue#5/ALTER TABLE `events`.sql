@@ -1,0 +1,1 @@
+ALTER TABLE `events` ADD `archived` BOOLEAN NOT NULL DEFAULT FALSE AFTER `duration`;

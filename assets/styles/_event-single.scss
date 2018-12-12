@@ -82,6 +82,11 @@ body.event-single
 							{
 								width: 100%;
 								padding: 1px 5px;
+
+								&[type=checkbox]
+								{
+									width: auto;
+								}
 							}
 						}
 					}
