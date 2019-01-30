@@ -175,6 +175,7 @@ function autoCompleteQuickAdd()
 
 						$("p.no-events").remove();
 						$("section.results-container").append(newInstance);
+						$(".quick-add-container").append("<p class='alert alert-success'>New instance added successfully</p>");
 						addStatusUpdateActions();
 				}).fail(function(data)
 				{
@@ -187,6 +188,14 @@ function autoCompleteQuickAdd()
 			}
 		});
 	}
+
+	$(document).on("click", "p.alert", function()
+	{
+		$(this).slideUp(400, function()
+		{
+			$(this).remove();
+		});
+	});
 }
 
 function addStatusUpdateActions()
