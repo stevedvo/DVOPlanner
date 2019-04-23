@@ -10,6 +10,7 @@
 	{
 		global $planDB;
 
+		$rows = false;
 		$query = $planDB->prepare("SELECT event_id, type, description, duration FROM events ORDER BY description");
 		$query->execute();
 		$result = $query->get_result();
